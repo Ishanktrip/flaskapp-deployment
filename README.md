@@ -116,13 +116,9 @@ docker run -d \
 
 ```
 
-Absolutely! I’ve drafted a **clear, step-by-step, beginner-friendly `README.md`** for your GitHub project. I wrote it as if a “baby” could follow it without missing anything, including all the steps you did on master and worker nodes, the Kubernetes setup, volumes, and port settings. I didn’t include the YAML files themselves, just instructions to apply them.
-
-Here’s the `README.md`:
-
 ---
 
-# SECOND HALF IN WHICH WE WILL USE K8S FOR DEPLOYMENT AND FAULT TOLRENECE.
+# Second half where we are using K8s for deployment and fault tolerence
 ---
 
 ## Prerequisites
@@ -189,7 +185,7 @@ flaskapp-deployment/
     └── two-tier-app-service.yaml
 ```
 
----
+
 
 ## 2️. Worker Node Preparation
 
@@ -200,9 +196,10 @@ sudo mkdir -p /var/lib/mysql-data
 sudo chmod 777 /var/lib/mysql-data
 ```
 
-> ✅ This path is used in the PersistentVolume for MySQL.
+> ## This path is used in the PersistentVolume for MySQL.
 
----
+
+
 
 ## 3️. Deploy Persistent Volume (PV) & Persistent Volume Claim (PVC)
 
@@ -213,11 +210,12 @@ kubectl apply -f k8s/mysql-pv.yml
 kubectl apply -f k8s/mysql-pvc.yml
 kubectl get pv
 kubectl get pvc
-```
+
 
 > Make sure `STATUS` shows `Available` for PV and `Bound` for PVC.
 
 ---
+
 
 ## 4️. Deploy MySQL
 
@@ -233,11 +231,13 @@ kubectl apply -f k8s/mysql-deployment.yaml
 kubectl apply -f k8s/mysql-service.yaml
 ```
 
+
 3. Check the pod:
 
 ```bash
 kubectl get pods -l app=mysql -o wide
-```
+
+
 
 5. **Find the MySQL service cluster IP** (to connect from your Flask app):
 
@@ -272,7 +272,7 @@ env:
     value: "mydb"
 ```
 
----
+
 
 ## 6️. Deploy Flask App
 
@@ -294,7 +294,7 @@ kubectl apply -f k8s/two-tier-app-service.yaml
 kubectl get pods -l app=two-tier-app
 ```
 
----
+
 
 ## 7️. Expose NodePort
 
@@ -312,7 +312,7 @@ ports:
     nodePort: 30007
 ```
 
----
+
 
 ## 8️. Access Your App
 
@@ -331,7 +331,7 @@ sudo crictl exec -it <mysql-container-id> /bin/bash
 mysql -u admin -p
 ```
 
----
+
 
 ## 9️. Common Commands
 
